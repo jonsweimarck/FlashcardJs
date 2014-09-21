@@ -6,6 +6,8 @@ var Gamestate = (function () {
 
     var cards;
     var cardIndex;
+    var cardsOk = [];
+    var cardsNok = [];
 
     var init = function(cardsToUse){
         cards = cardsToUse;
@@ -21,10 +23,20 @@ var Gamestate = (function () {
         return cards[cardIndex];
     }
 
+    var currentCardOk = function(){
+        cardsOk = cardsOk + cards[cardIndex];
+    }
+
+    var currentCardNok = function(){
+        cardsNok = cardsNok + cards[cardIndex];
+    }
+
     return {
         init: init,
         hasMoreCards: hasMoreCards,
-        nextCard: nextCard
+        nextCard: nextCard,
+        currentCardOk : currentCardOk,
+        currentCardNok : currentCardNok
     };
 
 })();

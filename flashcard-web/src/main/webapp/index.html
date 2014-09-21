@@ -4,6 +4,7 @@
     <script src="lib/jquery-1.11.1.js"></script>
     <script src="flashcards.js"></script>
     <script src="gamestate.js"></script>
+    <script src="gamearea.js"></script>
 
     <title>Flashcard</title>
 </head>
@@ -16,7 +17,7 @@ Prutt
         Gamestate.init(Flashcards.getCards());
         while(Gamestate.hasMoreCards()){
             var card = Gamestate.nextCard();
-            alert(card.a);
+            Gamearea.showCard(card, Gamestate.currentCardOk, Gamestate.currentCardNok);
         }
     });
 
