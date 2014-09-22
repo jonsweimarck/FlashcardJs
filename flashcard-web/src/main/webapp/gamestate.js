@@ -9,9 +9,12 @@ var Gamestate = (function () {
     var cardsOk = [];
     var cardsNok = [];
 
-    var init = function(cardsToUse){
+    var readyForNextCard;
+
+    var init = function(cardsToUse, readyForNextCardCallback){
         cards = cardsToUse;
         cardIndex = -1;
+        readyForNextCard = readyForNextCardCallback;
     }
 
     var hasMoreCards = function(){
@@ -24,11 +27,17 @@ var Gamestate = (function () {
     }
 
     var currentCardOk = function(){
+        alert('currentCardOk');
         cardsOk = cardsOk + cards[cardIndex];
+        console.log('cardsOk added, length: ' + cardsOk.length);
+        readyForNextCard();
     }
 
     var currentCardNok = function(){
+        alert('currentCardNok');
         cardsNok = cardsNok + cards[cardIndex];
+        console.log('cardsNok added, length: ' + cardsNok.length);
+        readyForNextCard();
     }
 
     return {

@@ -1,12 +1,16 @@
 var Gamearea = (function () {
 
-    var showCard = function(card, cardOkCallback, cardNokCallback){
-        $("#cardq").val(card.q);
-        $("#cardok_butt").onclick = cardOkCallback;
-        $("#cardok_butt").onclick = cardNokCallback;
+    var init = function(cardOkCallback, cardNokCallback){
+        $("#cardok_butt").click(cardOkCallback);
+        $("#cardnok_butt").click(cardNokCallback);
+    }
+
+    var showCard = function(card){
+        $("#cardq").text(card.q);
     }
 
     return {
+        init: init,
         showCard: showCard
     };
 

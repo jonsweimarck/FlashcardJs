@@ -1,29 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head lang="sv">
     <script src="lib/jquery-1.11.1.js"></script>
     <script src="flashcards.js"></script>
     <script src="gamestate.js"></script>
     <script src="gamearea.js"></script>
+    <script src="gamecontroller.js"></script>
 
     <title>Flashcard</title>
 </head>
 <body>
-Prutt
+Question
+<div id="cardq">plupp</div>
+<button id="cardok_butt">OK</button>
+<button id="cardnok_butt">NOK</button>
+
 
 
 <script>
     $(function() {
-        Gamestate.init(Flashcards.getCards());
-        while(Gamestate.hasMoreCards()){
-            var card = Gamestate.nextCard();
-            Gamearea.showCard(card, Gamestate.currentCardOk, Gamestate.currentCardNok);
-        }
+        GameController.startGame();
     });
-
-
-
-
 
 </script>
 </body>
