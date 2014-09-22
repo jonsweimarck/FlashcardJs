@@ -1,28 +1,1 @@
-/**
- * Created by jons on 21/09/14.
- */
-var GameController= (function () {
-
-    var startGame = function(){
-        Gamestate.init(Flashcards.getCards(), whenReadyForNextCard);
-        Gamearea.init(Gamestate.currentCardOk, Gamestate.currentCardNok);
-        showNextCard();
-    }
-
-    function showNextCard(){
-        var card = Gamestate.nextCard();
-        Gamearea.showCard(card);
-    }
-
-    function whenReadyForNextCard(){
-        alert("whenReadyForNextCard");
-        if(Gamestate.hasMoreCards()){
-            showNextCard();
-        }
-    }
-
-    return {
-        startGame: startGame
-    };
-
-})();
+/** * Created by jons on 21/09/14. */var GameController= (function () {    var startGame = function(){        Gamestate.init(Flashcards.getCards(), whenReadyForNextCard);        Gamearea.init(Gamestate.currentCardOk, Gamestate.currentCardNok);        showNextCard();    }    function startMissedCardRound(missedCards){        Gamestate.init(missedCards, whenReadyForNextCard);        showNextCard();    }    /**     * Visar nästa kort utan koll att sådan finns     */    function showNextCard(){        var card = Gamestate.nextCard();        Gamearea.showCard(card);    }    /**     * Callback som anropas när ngn knapp klickats     */    function whenReadyForNextCard(){        console.log("whenReadyForNextCard");        if(Gamestate.hasMoreCards()){            showNextCard();        } else if(Gamestate.missedCardsExists()){            var missedCards = Gamestate.getMissedCard();            Gamearea.showMissedCards(missedCards);            startMissedCardRound(missedCards);        }  else {             $("#status").text("SLUUUUT");        }    }    return {        startGame: startGame    };})();

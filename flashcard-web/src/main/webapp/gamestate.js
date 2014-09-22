@@ -6,13 +6,14 @@ var Gamestate = (function () {
 
     var cards;
     var cardIndex;
-    var cardsOk = [];
-    var cardsNok = [];
+    var missedCards =[];
 
     var readyForNextCard;
 
     var init = function(cardsToUse, readyForNextCardCallback){
+        console.log("Gamestate init med " + cardsToUse.length + " kort");
         cards = cardsToUse;
+        missedCards =[]; // Viktigt eftersom init anropas även för att köra igång missedCardRound
         cardIndex = -1;
         readyForNextCard = readyForNextCardCallback;
     }
@@ -27,17 +28,23 @@ var Gamestate = (function () {
     }
 
     var currentCardOk = function(){
-        alert('currentCardOk');
-        cardsOk = cardsOk + cards[cardIndex];
-        console.log('cardsOk added, length: ' + cardsOk.length);
+        console.log('currentCardOk');
         readyForNextCard();
     }
 
     var currentCardNok = function(){
-        alert('currentCardNok');
-        cardsNok = cardsNok + cards[cardIndex];
-        console.log('cardsNok added, length: ' + cardsNok.length);
+        console.log('currentCardNok');
+        missedCards.push(cards[cardIndex]);
+        console.log('cardsNok added, length: ' + missedCards.length);
         readyForNextCard();
+    }
+
+    var missedCardsExists = function(){
+        return missedCards.length > 0;
+    }
+
+    var getMissedCard = function(){
+        return missedCards;
     }
 
     return {
@@ -45,7 +52,9 @@ var Gamestate = (function () {
         hasMoreCards: hasMoreCards,
         nextCard: nextCard,
         currentCardOk : currentCardOk,
-        currentCardNok : currentCardNok
+        currentCardNok : currentCardNok,
+        missedCardsExists : missedCardsExists,
+        getMissedCard : getMissedCard
     };
 
 })();

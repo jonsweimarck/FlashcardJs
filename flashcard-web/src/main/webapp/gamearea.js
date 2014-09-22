@@ -9,9 +9,18 @@ var Gamearea = (function () {
         $("#cardq").text(card.q);
     }
 
+    var showMissedCards = function(cards){
+        var missedText = "Du hade bara fel på " + cards.length + " kort: ";
+        for (var i = 0; i < cards.length; i++) {
+            missedText += cards[i].q + " ";
+        }
+        $("#status").text(missedText);
+    }
+
     return {
         init: init,
-        showCard: showCard
+        showCard: showCard,
+        showMissedCards: showMissedCards
     };
 
 })();
