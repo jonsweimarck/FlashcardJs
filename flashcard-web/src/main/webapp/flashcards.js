@@ -4,7 +4,7 @@
 
 var Flashcards = (function () {
 
-    var getCards = function () {
+    var getDeck = function () {
         return shuffleArray(cards)
     };
 
@@ -30,7 +30,7 @@ var Flashcards = (function () {
         ];
 
     return {
-        getCards: getCards
+        getDeck: getDeck
     };
 
 })();

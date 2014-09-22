@@ -1,20 +1,26 @@
 var Gamearea = (function () {
 
     var init = function(cardOkCallback, cardNokCallback){
-        $("#cardok_butt").click(cardOkCallback);
-        $("#cardnok_butt").click(cardNokCallback);
+        $("#showcardok_butt").click(cardOkCallback);
+        $("#showcardnok_butt").click(cardNokCallback);
     }
 
     var showCard = function(card){
-        $("#cardq").text(card.q);
+        $("#missedcard_div").hide();
+        $("#showcard_div").show();
+        $("#showcardq").text(card.q);
     }
 
-    var showMissedCards = function(cards){
+    var showMissedCards = function(cards, okCallback){
+        $("#showcard_div").hide();
+        $("#missedcard_div").show();
         var missedText = "Du hade bara fel på " + cards.length + " kort: ";
         for (var i = 0; i < cards.length; i++) {
             missedText += cards[i].q + " ";
         }
-        $("#status").text(missedText);
+        $("#missedcard_text").text(missedText);
+
+        $("#missedcard_butt").click(okCallback);
     }
 
     return {
