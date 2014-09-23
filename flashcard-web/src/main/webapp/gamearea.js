@@ -1,9 +1,10 @@
 var Gamearea = (function () {
 
     var init = function(cardOkFunc, cardNokFunc, startAgainFunc){
-        $("#showcardok_butt").click(cardOkFunc);
-        $("#showcardnok_butt").click(cardNokFunc);
-        $("#finished_butt").click(startAgainFunc);
+
+        $("#showcardok_butt").off("click").click(cardOkFunc);
+        $("#showcardnok_butt").off("click").click(cardNokFunc);
+        $("#finished_butt").off("click").click(startAgainFunc);
     }
 
     var showCard = function(card){
@@ -13,7 +14,7 @@ var Gamearea = (function () {
         $("#showcardq").text(card.q);
     }
 
-    var showMissedCards = function(cards, okCallback){
+    var showMissedCards = function(cards, startMissedCardRoundFunc){
         $("#showcard_div").hide();
         $("#finished_div").hide();
         $("#missedcard_div").show();
@@ -22,7 +23,7 @@ var Gamearea = (function () {
             missedText += cards[i].q + " ";
         }
         $("#missedcard_text").text(missedText);
-        $("#missedcard_butt").click(okCallback);
+        $("#missedcard_butt").off("click").click(startMissedCardRoundFunc);
     }
 
     var showFinished = function(cardsToshow){
@@ -44,8 +45,6 @@ var Gamearea = (function () {
         showCard: showCard,
         showMissedCards: showMissedCards,
         showFinished: showFinished
-
-
     };
 
 })();

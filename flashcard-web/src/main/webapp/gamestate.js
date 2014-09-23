@@ -7,14 +7,13 @@ var Gamestate = (function () {
     var cards;
     var cardIndex;
     var missedCards =[];
-
     var readyForNextCard;
 
     var init = function(cardsToUse, readyForNextCardCallback){
         console.log("Gamestate init med " + cardsToUse.length + " kort");
         cards = cardsToUse;
-        missedCards =[]; // Viktigt eftersom init anropas även för att köra igång missedCardRound
         cardIndex = -1;
+        missedCards =[]; // Viktigt eftersom init anropas även för att köra igång missedCardRound
         readyForNextCard = readyForNextCardCallback;
     }
 
@@ -23,6 +22,7 @@ var Gamestate = (function () {
     }
 
     var nextCard = function(){
+        console.log('nextCard');
         cardIndex ++;
         return cards[cardIndex];
     }
