@@ -9,12 +9,23 @@ var Gamestate = (function () {
     var missedCards =[];
     var readyForNextCard;
 
+    var STATE_CARD_NOT_YET_SHOWN = 0;
+    var STATE_CARD_OK_FIRST_ROUND = 1;
+    var STATE_CARD_OK_OTHER_ROUND = 2;
+    var STATE_CARD_MISSED = 3;
+
     var init = function(cardsToUse, readyForNextCardCallback){
         console.log("Gamestate init med " + cardsToUse.length + " kort");
-        cards = cardsToUse;
+        cards = addInitStateToCards(cardsToUse);
         cardIndex = -1;
         missedCards =[]; // Viktigt eftersom init anropas även för att köra igång missedCardRound
         readyForNextCard = readyForNextCardCallback;
+    }
+
+    function addInitStateToCards(cards) {
+        for (var i = 0; i < cards.length; i++){
+            cards[i].state = STATE_CARD_NOT_YET_SHOWN;
+        }
     }
 
     var hasMoreCards = function(){
