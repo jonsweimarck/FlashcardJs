@@ -26,6 +26,13 @@ var Gamearea = (function () {
         $("#missedcard_butt").off("click").click(startMissedCardRoundFunc);
     }
 
+    var showUpdatedGraph = function(okFirstRound, okOtherRounds, missed, left){
+        $("#showgraph_div").text(
+                " okFirstRound: " + okFirstRound +
+                ", okOtherRounds: " + okOtherRounds +
+                ", missed: " + missed +
+                ", left: " + left);
+    }
     var showFinished = function(cardsToshow){
         $("#showcard_div").hide();
         $("#missedcard_div").hide();
@@ -43,6 +50,7 @@ var Gamearea = (function () {
     return {
         init: init,
         showCard: showCard,
+        showUpdatedGraph: showUpdatedGraph,
         showMissedCards: showMissedCards,
         showFinished: showFinished
     };
