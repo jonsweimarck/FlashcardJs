@@ -2,12 +2,12 @@
  * Created by jons on 21/09/14.
  */
 
-var Gamestate = (function () {
+var Deckstate = (function () {
 
     var cards;
     var cardIndex;
-    var missedCardsFirstRound =[];
-    var readyForNextCard;
+    var missedCardsFirstRound =[];   // Bra ha för visa inför felomgång och vid slut
+    var currentCardHandledCallback;  // Håller func som anropas efter hantering av ok/nok-knapptryck
     var isFirstRound;
 
     var STATE_CARD_NOT_YET_SHOWN = 0;
@@ -15,27 +15,37 @@ var Gamestate = (function () {
     var STATE_CARD_OK_OTHER_ROUND = 2;
     var STATE_CARD_MISSED = 3;
 
-    var initFirstRound = function(cardsToUse, readyForNextCardCallback){
-        console.log("Gamestate initFirstRound med " + cardsToUse.length + " kort");
+    /**
+     *
+     * @param cardsToUse Den kortlek som kommer att användas
+     * @param currentCardHandledCB Callback som alltid kommer att anropas efter att ett kort hanterats
+     * av currentCardOk() eller currentCardNok()
+     */
+    var initFirstRound = function(cardsToUse, currentCardHandledCB){
+        console.log("Deckstate initFirstRound med " + cardsToUse.length + " kort");
         cards = addInitStateToCards(cardsToUse);
         cardIndex = -1;
         missedCardsFirstRound =[];
-        readyForNextCard = readyForNextCardCallback;
+        currentCardHandledCallback = currentCardHandledCB;
         isFirstRound = true;
+
+        function addInitStateToCards(cards) {
+            for (var i = 0; i < cards.length; i++){
+                cards[i].state = STATE_CARD_NOT_YET_SHOWN;
+            }
+            return cards;
+        }
     }
 
+    /**
+     * Initierar variabler för en omgång med de kort som det svarats fel på
+     */
     var initOtherRound = function(){
-        console.log("Gamestate initOtherRound ");
+        console.log("Deckstate initOtherRound ");
         cardIndex = -1;
         isFirstRound = false;
     }
 
-    function addInitStateToCards(cards) {
-        for (var i = 0; i < cards.length; i++){
-            cards[i].state = STATE_CARD_NOT_YET_SHOWN;
-        }
-        return cards;
-    }
 
     var nbrCardsOkFirstRound = function(){return nbrWithState(STATE_CARD_OK_FIRST_ROUND);}
 
@@ -74,6 +84,9 @@ var Gamestate = (function () {
         return null;
     }
 
+    /**
+     * Markerar aktuellt kort som ok och anropar sedan callbackfunktionen angetts i initFirstround()
+     */
     var currentCardOk = function(){
         console.log('currentCardOk');
         if(isFirstRound){
@@ -82,9 +95,12 @@ var Gamestate = (function () {
             cards[cardIndex].state = STATE_CARD_OK_OTHER_ROUND;
         }
 
-        readyForNextCard();
+        currentCardHandledCallback();
     }
 
+    /**
+     * Markerar aktuellt kort som Nok och anropar sedan callbackfunktionen angetts i initFirstround()
+     */
     var currentCardNok = function(){
         console.log('currentCardNok');
         cards[cardIndex].state = STATE_CARD_MISSED;
@@ -92,7 +108,7 @@ var Gamestate = (function () {
             missedCardsFirstRound.push(cards[cardIndex]);
             console.log('cardsNok added, length: ' + missedCardsFirstRound.length);
         }
-        readyForNextCard();
+        currentCardHandledCallback();
     }
 
     var missedCardsExists = function(){

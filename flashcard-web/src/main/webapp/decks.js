@@ -2,7 +2,7 @@
  * Created by jons on 21/09/14.
  */
 
-var Flashcards = (function () {
+var Decks = (function () {
 
     var getDeck = function () {
         return shuffleArray(cards)

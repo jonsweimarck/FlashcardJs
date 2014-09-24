@@ -1,4 +1,4 @@
-var Gamearea = (function () {
+var Gui = (function () {
 
     var init = function(cardOkFunc, cardNokFunc, startAgainFunc){
 
