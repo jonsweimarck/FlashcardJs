@@ -19,20 +19,30 @@ var Gui = (function () {
         $('.front').find("p:first").text(card.q);
         $('.back').find("p:first").text(card.a);
 
+        resetTimer();
 
-        countdownTimer = setInterval(function(){secondPassed();}, 1000);
-        seconds = 5;
+        function resetTimer(){
+            if(countdownTimer != undefined){
+                clearInterval(countdownTimer);
+            }
+            seconds = 5;
+            countdownTimer = setInterval(function(){secondPassed();}, 1000);
+        }
     }
 
-    var showMissedCards = function(cards, startMissedCardRoundFunc){
+    var showMissedCards = function(nbrCardsOkFirstRound, nbrCardsMissedFirstRound, startMissedCardRoundFunc){
         $("#showcard_div").hide();
         $("#finished_div").hide();
         $("#missedcard_div").show();
-        var missedText = "Du hade bara fel på " + cards.length + " kort: ";
-        for (var i = 0; i < cards.length; i++) {
-            missedText += cards[i].q + " ";
+
+        var missedText_1 = "Du klarade " + nbrCardsOkFirstRound + " kort direkt, men hade problem med " + nbrCardsMissedFirstRound + ". ";
+        if(nbrCardsMissedFirstRound > 1 ){
+            var missedText_2 = "Vi visar om de korten tills du klarar dem!";
+        } else {
+            var missedText_2 = "Vi visar om det kortet tills du klarar det!";
         }
-        $("#missedcard_text").text(missedText);
+
+        $("#missedcard_text").text(missedText_1.concat(missedText_2));
         $("#missedcard_butt").off("click").click(startMissedCardRoundFunc);
     }
 
@@ -48,15 +58,18 @@ var Gui = (function () {
     var showFinished = function(cardsToshow){
         console.log('showFinished');
 
+        if(cardsToshow.length > 0){
+            $("#finished_text").text("Du hade bara problem med:");
+            for (var i = 0; i < cardsToshow.length; i++) {
+                $("#finished_text").append("<div>" + cardsToshow[i].a + "</div>");
+            }
+        } else {
+            $("#finished_text").text("Du klarade alla kort utan problem!");
+        }
+
         $("#showcard_div").hide();
         $("#missedcard_div").hide();
         $("#finished_div").show();
-
-        var missedText = "Sluuuut! Du hade bara fel på " + cardsToshow.length + " kort: ";
-        for (var i = 0; i < cardsToshow.length; i++) {
-            missedText += cardsToshow[i].q + " ";
-        }
-        $("#finished_text").text(missedText);
     }
 
     function drawChart(okFirstRound, okOtherRounds, missed, left) {
@@ -65,7 +78,7 @@ var Gui = (function () {
             ['Klarade direkt',              okFirstRound],
             ['Klarade efter flera försök',  okOtherRounds],
             ['Fel',  		                missed],
-            ['Kvar',     	                left],
+            ['Kvar',     	                left]
         ]);
 
         var options = {
