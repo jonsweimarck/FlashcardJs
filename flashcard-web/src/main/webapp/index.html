@@ -2,17 +2,63 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head lang="sv">
     <script src="lib/jquery-1.11.1.js"></script>
-    <script src="decks.js"></script>
-    <script src="deckstate.js"></script>
-    <script src="gui.js"></script>
-    <script src="gamecontroller.js"></script>
+    <script src="js/decks.js"></script>
+    <script src="js/deckstate.js"></script>
+    <script src="js/gui.js"></script>
+    <script src="js/gamecontroller.js"></script>
+    <script src="js/jsapi.js"></script> <!-- google visualization -->
 
     <title>Flashcard</title>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/flipcard.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/main.css">
+
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+
+
+    </script>
+
+
+    <script type="text/javascript">
+        /*
+        var countdownTimer = setInterval('secondPassed()', 1000);
+        var seconds = 5;
+        function secondPassed() {
+            document.getElementById('flipbutton').innerHTML = "<i class='icon-eye-open icon-white'></i>  (" + seconds + ")";
+
+            if (seconds == 0) {
+                flipCard();
+            } else {
+                seconds--;
+            }
+        }
+
+        function flipCard()
+        {
+            clearInterval(countdownTimer);
+            document.getElementById("flipid").className += " flip";
+            disableFlipbutton();
+        }
+
+
+        function disableFlipbutton()
+        {
+            document.getElementById("flipbutton").disabled = true;
+            document.getElementById("flipbutton").className += " disabled";
+            document.getElementById('flipbutton').innerHTML = "<i class='icon-eye-close icon-white'></i>  (0)";
+        }
+*/
+
+    </script>
 </head>
 <body>
 
-<div id="showgraph_div">
-</div>
+<div id="showgraph_div"></div>
+<div id="chart_div"></div>
+
 
 <br/>
 
@@ -39,6 +85,7 @@
 
 <script>
     $(function() {
+        google.load("visualization", "1", {packages:["corechart"]});
         GameController.startGame();
     });
 
