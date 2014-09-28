@@ -14,7 +14,6 @@ var Gui = (function () {
         $("#missedcard_div").hide();
         $("#finished_div").hide();
         $("#showcard_div").show();
-        $("#showcardq").text(card.q);
 
         $("#flipid").removeClass('flip');
         $('.front').find("p:first").text(card.q);
@@ -38,7 +37,7 @@ var Gui = (function () {
     }
 
     var showUpdatedGraph = function(okFirstRound, okOtherRounds, missed, left){
-        $("#showgraph_div").text(
+        console.log(
                 " okFirstRound: "   + okFirstRound +
                 ", okOtherRounds: " + okOtherRounds +
                 ", missed: "        + missed +
@@ -47,6 +46,8 @@ var Gui = (function () {
         drawChart(okFirstRound, okOtherRounds, missed, left);
     }
     var showFinished = function(cardsToshow){
+        console.log('showFinished');
+
         $("#showcard_div").hide();
         $("#missedcard_div").hide();
         $("#finished_div").show();
