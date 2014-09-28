@@ -16,6 +16,11 @@ var Gui = (function () {
         $("#showcard_div").show();
         $("#showcardq").text(card.q);
 
+        $("#flipid").removeClass('flip');
+        $('.front').find("p:first").text(card.q);
+        $('.back').find("p:first").text(card.a);
+
+
         countdownTimer = setInterval(function(){secondPassed();}, 1000);
         seconds = 5;
     }
@@ -86,7 +91,7 @@ var Gui = (function () {
 
         function flipCard(){
             clearInterval(countdownTimer);
-            document.getElementById("flipid").className += " flip";
+            $("#flipid").addClass('flip');
             disableFlipbutton();
 
             function disableFlipbutton(){
