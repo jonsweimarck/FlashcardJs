@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head lang="sv">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="keywords" content="matte,mattekort,grundskola,lilla plus,stora plus,lilla minus,stora minus">
+
+
     <script src="lib/jquery-1.11.1.js"></script>
     <script src="js/decks.js"></script>
     <script src="js/deckstate.js"></script>
@@ -17,75 +21,98 @@
     <script type="text/javascript">
         google.load("visualization", "1", {packages:["corechart"]});
         google.setOnLoadCallback(drawChart);
-
-
-    </script>
-
-
-    <script type="text/javascript">
-        /*
-        var countdownTimer = setInterval('secondPassed()', 1000);
-        var seconds = 5;
-        function secondPassed() {
-            document.getElementById('flipbutton').innerHTML = "<i class='icon-eye-open icon-white'></i>  (" + seconds + ")";
-
-            if (seconds == 0) {
-                flipCard();
-            } else {
-                seconds--;
-            }
-        }
-
-        function flipCard()
-        {
-            clearInterval(countdownTimer);
-            document.getElementById("flipid").className += " flip";
-            disableFlipbutton();
-        }
-
-
-        function disableFlipbutton()
-        {
-            document.getElementById("flipbutton").disabled = true;
-            document.getElementById("flipbutton").className += " disabled";
-            document.getElementById('flipbutton').innerHTML = "<i class='icon-eye-close icon-white'></i>  (0)";
-        }
-*/
-
     </script>
 </head>
 <body>
-
-<div id="showgraph_div"></div>
-<div id="chart_div"></div>
+<div class="container" style="padding:10px; margin-top:10px; background-color:#D0E7EF;">
 
 
-<br/>
 
-<div id="showcard_div" style="display:none">
-    Question
-    <div id="showcardq">plupp</div>
-    <button id="showcardok_butt">Ok</button>
-    <button id="showcardnok_butt">NOk</button>
+    <div id="showgraph_div"></div>
+    <div id="chart_div"></div>
+
+
+    <br/>
+
+    <div id="showcard_div" style="display:none">
+        Question
+        <div id="showcardq">plupp</div>
+        <button id="showcardok_butt">Ok</button>
+        <button id="showcardnok_butt">NOk</button>
+
+        <div class="row show-grid">
+            <div class="span4 half">
+                <div class="flipscene">
+                    <div class="click panel" id="flipid">
+                        <div class="front">
+                            <p>
+                                frågan
+                            </p>
+                        </div>
+                        <div class="back">
+                            <p>
+                                svaret
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row show-grid">
+                    <div class="span4 half">
+
+                        <button style="
+				float: left;
+				width:70px;
+				padding-top: 4px;
+				padding-left: 4px;
+				padding-right:4px;
+				margin-top: 2px;
+				margin-left: 3px;
+				margin-right:2px;" class="btn btn-info active" id="flipbutton" onclick="flipCard()"><i class="icon-eye-open icon-white"></i> (5)</button>
+
+                        <form class="form-inline" style="float: left; padding: 2px;" action="@routes.Decks.nextFlashcardFromState()" method="post">
+                            <input type="hidden" name="deckId" value="@deckId">
+                            <input type="hidden" name="retriesHasStarted" value="@retriesHasStarted">
+                            <input type="hidden" name="flashcardsStateAsString" value="@postStateIfOK.stateAsString">
+                            <button style="width:70px" class="btn btn-success" type="submit"><i class=" icon-ok icon-white"></i></button>
+                        </form>
+                        <form class="form-inline" style="float: left; padding: 2px;" action="@routes.Decks.nextFlashcardFromState()" method="post">
+                            <input type="hidden" name="deckId" value="@deckId">
+                            <input type="hidden" name="retriesHasStarted" value="@retriesHasStarted">
+                            <input type="hidden" name="flashcardsStateAsString" value="@postStateIfNOK.stateAsString">
+                            <button  style="width:70px"class="btn btn-danger" type="submit"><i class=" icon-remove icon-white"></i></button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="span4 half">
+                <div id="chart_div" style="width: 180px; height: 180px;"></div>
+            </div>
+            <div class="span4"/>
+        </div>
+
+
+
+    </div>
+
+
+
+    <div id="missedcard_div" style="display:none">
+        <div id="missedcard_text">plopp</div>
+
+        <button id="missedcard_butt">Ok</button>
+    </div>
+
+    <div id="finished_div" style="display:none">
+        <div id="finished_text">plipp</div>
+        <button id="finished_butt"><i class="icon-home icon-white"></i><small> Börja om</small></button>
+    </div>
 </div>
-
-
-
-<div id="missedcard_div" style="display:none">
-    <div id="missedcard_text">plopp</div>
-
-    <button id="missedcard_butt">Ok</button>
-</div>
-
-<div id="finished_div" style="display:none">
-    <div id="finished_text">plipp</div>
-    <button id="finished_butt">Börja om</button>
-</div>
-
 
 <script>
     $(function() {
-        google.load("visualization", "1", {packages:["corechart"]});
         GameController.startGame();
     });
 

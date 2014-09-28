@@ -1,5 +1,8 @@
 var Gui = (function () {
 
+    var countdownTimer;
+    var seconds;
+
     var init = function(cardOkFunc, cardNokFunc, startAgainFunc){
 
         $("#showcardok_butt").off("click").click(cardOkFunc);
@@ -12,6 +15,9 @@ var Gui = (function () {
         $("#finished_div").hide();
         $("#showcard_div").show();
         $("#showcardq").text(card.q);
+
+        countdownTimer = setInterval(function(){secondPassed();}, 1000);
+        seconds = 5;
     }
 
     var showMissedCards = function(cards, startMissedCardRoundFunc){
@@ -66,6 +72,31 @@ var Gui = (function () {
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
+
+
+
+    function secondPassed() {
+        document.getElementById('flipbutton').innerHTML = "<i class='icon-eye-open icon-white'></i>  (" + seconds + ")";
+
+        if (seconds == 0) {
+        flipCard();
+        } else {
+        seconds--;
+        }
+
+        function flipCard(){
+            clearInterval(countdownTimer);
+            document.getElementById("flipid").className += " flip";
+            disableFlipbutton();
+
+            function disableFlipbutton(){
+                document.getElementById("flipbutton").disabled = true;
+                document.getElementById("flipbutton").className += " disabled";
+                document.getElementById('flipbutton').innerHTML = "<i class='icon-eye-close icon-white'></i>  (0)";
+            }
+        }
+
+     }
 
     return {
         init: init,
