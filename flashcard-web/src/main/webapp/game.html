@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head lang="sv">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="keywords" content="matte,mattekort,grundskola,lilla plus,stora plus,lilla minus,stora minus">
+
+    <script src="lib/jquery-1.11.1.js"></script>
+    <script src="js/decks.js"></script>
+    <script src="js/deckstate.js"></script>
+    <script src="js/gui.js"></script>
+    <script src="js/gamecontroller.js"></script>
+    <script src="js/jsapi.js"></script> <!-- google visualization -->
+
+    <title>mattekort.se</title>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/flipcard.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/main.css">
+
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages:["corechart"]});
+    </script>
+</head>
+<body>
+
+<div style="padding:10px; margin-top:10px; background-color:#D0E7EF;">
+        <div class="row show-grid">
+
+            <div class="span4 half" id="missedcard_div" style="display:none">
+                <div>
+                    <h2> Bravo! </h2>
+                    <p>Alla kort &auml;r visade!
+                        <br/>
+                        <div id="missedcard_text"></div>
+                    </p>
+                </div>
+                <button class="btn btn-info" id="missedcard_butt">Ok</button>
+            </div>
+
+            <div class="span4 half" id="finished_div" style="display:none">
+                <div>
+                    <h2>Klar!</h2>
+                </div>
+                <div id="finished_text"></div>
+            </div>
+
+            <div class="span4 half" id="showcard_div" style="display:none">
+                <div class="flipscene">
+                    <div class="click panel" id="flipid">
+                        <div class="front">
+                            <p>
+                                frågan
+                            </p>
+                        </div>
+                        <div class="back">
+                            <p>
+                                svaret
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row show-grid">
+                    <div class="span4 half">
+
+                        <button style="
+				float: left;
+				width:70px;
+				padding-top: 4px;
+				padding-left: 4px;
+				padding-right:4px;
+				margin-top: 2px;
+				margin-left: 3px;
+				margin-right:2px;" class="btn btn-info active" id="flipbutton" onclick="flipCard()"><i class="icon-eye-open icon-white"></i> (5)</button>
+
+                        <div class="form-inline" style="float: left; padding: 2px;">
+                            <input type="hidden" name="deckId" value="@deckId">
+                            <input type="hidden" name="retriesHasStarted" value="@retriesHasStarted">
+                            <input type="hidden" name="flashcardsStateAsString" value="@postStateIfOK.stateAsString">
+                            <button id="showcardok_butt" style="width:70px" class="btn btn-success"><i class=" icon-ok icon-white"></i></button>
+                        </div>
+                        <div class="form-inline" style="float: left; padding: 2px;">
+                            <input type="hidden" name="deckId" value="@deckId">
+                            <input type="hidden" name="retriesHasStarted" value="@retriesHasStarted">
+                            <input type="hidden" name="flashcardsStateAsString" value="@postStateIfNOK.stateAsString">
+                            <button id="showcardnok_butt" style="width:70px"class="btn btn-danger"><i class=" icon-remove icon-white"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="span4 half">
+                <div id="chart_div" style="width: 180px; height: 180px;"></div>
+            </div>
+            <div class="span4"></div>
+
+        </div>
+        <div class="row show-grid">
+                <br/>
+                <div class="span4 half">
+                    <a id="finished_butt" href="#"><i class="icon-home icon-white"></i><small> B&ouml;rja om</small></a>
+                </div>
+                <div class="span8"></div>
+         </div>
+</div>
+
+
+<script>
+    $(function() {
+        var params = getUrlVars();
+        alert(params['deckid']);
+        GameController.startGame(params['deckid']);
+    });
+
+    // Read a page's GET URL variables and return them as an associative array.
+    function getUrlVars()
+    {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+</script>
+</body>
+
+
+
+</html>
