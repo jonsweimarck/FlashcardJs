@@ -8,6 +8,9 @@
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/flipcard.css">
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/main.css">
 
+    <script src="lib/jquery-1.11.1.js"></script>
+    <script src="js/decks.js"></script>
+
     <script type="text/javascript">
         function toogleDivs(divToOpen) {
             document.getElementById("addDiv").style.display = "none";
@@ -40,27 +43,8 @@
             <h3><a href="#" onclick='toogleDivs("addDiv");'>Plus</a></h3>
             <div style="display:none;" id="addDiv">
                 <table class="table">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <a style="cursor:pointer;" onclick="location.href='game.html?deckid=1'">
-                                    <i class="icon-play icon-white"></i>  lek 1
-                                </a>
-                                <br>
-                                Besk 1 dasdasdSAFASFADFADFASDFdfgsd sdfgsdgf sdfgsdfg (34 kort)
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <a style="cursor:pointer;" onclick="location.href='game.html?deckid=2'">
-                                    <i class="icon-play icon-white"></i>  lek 2
-                                </a>
-                                <br>
-                                Besk 2 dasdasdSAFASFADFADFASDFdfgsd sdfgsdgf sdfgsdfg (36 kort)
-                            </td>
-                        </tr>
-
+                    <tbody id="addtablebody">
+                     <!-- rows will be inserted -->
                     </tbody>
                 </table>
             </div>
@@ -68,21 +52,8 @@
             <h3><a href="#" onclick='toogleDivs("subDiv");'>Minus</a></h3>
             <div style="display:none;" id="subDiv">
                 <table class="table">
-                    <tbody>
-                    @for(deck <- subDecks) {
-                    <form id="decklistId@deck.id" action="@routes.Decks.initialFlashcard()" method="post">
-                        <input type="hidden" name="deckId" value=@deck.id>
-                        <tr>
-                            <td style="border:none;" >
-                                <a style="cursor:pointer;" onclick="document.getElementById('decklistId@deck.id').submit();">
-                                    <i class="icon-play icon-white"></i>  @deck.name
-                                </a>
-                                <br>
-                                @deck.desc (@deck.size kort)
-                            </td>
-                        </tr>
-                    </form>
-                    }
+                    <tbody id="subtablebody">
+                    <!-- rows will be inserted -->
                     </tbody>
                 </table>
             </div>
@@ -90,21 +61,17 @@
             <h3><a href="#" onclick='toogleDivs("multDiv");'>Gånger</a></h3>
             <div style="display:none;" id="multDiv">
                 <table class="table">
-                    <tbody>
-                    @for(deck <- multDecks) {
-                    <form id="decklistId@deck.id" action="@routes.Decks.initialFlashcard()" method="post">
-                        <input type="hidden" name="deckId" value=@deck.id>
-                        <tr>
-                            <td style="border:none;" >
-                                <a style="cursor:pointer;" onclick="document.getElementById('decklistId@deck.id').submit();">
-                                    <i class="icon-play icon-white"></i>  @deck.name
-                                </a>
-                                <br>
-                                @deck.desc (@deck.size kort)
-                            </td>
-                        </tr>
-                    </form>
-                    }
+                    <tbody id="multtablebody">
+                    <!-- rows will be inserted -->
+                    </tbody>
+                </table>
+            </div>
+
+            <h3><a href="#" onclick='toogleDivs("homeworkDiv");'>Uppsävjaskolans matteläxor</a></h3>
+            <div style="display:none;" id="homeworkDiv">
+                <table class="table">
+                    <tbody id="homeworktablebody">
+                    <!-- rows will be inserted -->
                     </tbody>
                 </table>
             </div>
@@ -115,5 +82,33 @@
     </div>
 
 </div>
+
+<script>
+    $(function() {
+
+        function createDeckRows(decks) {
+            var template ="<tr><td><a style='cursor:pointer;' onclick=\"location.href='game.html?deckid=#id#'\">" +
+                         "<i class='icon-play icon-white'></i>#namn#</a><br>" +
+                         "#besk# (#antal# kort) </td></tr>";
+            var rows = "";
+
+            for(var i = 0; i<decks.length; i++){
+                rows += template
+                        .replace("#id#", decks[i].id)
+                        .replace("#namn#", decks[i].name)
+                        .replace("#besk#", decks[i].desc)
+                        .replace("#antal#", decks[i].cards.length);
+            }
+            return rows;
+        }
+
+        $("#addtablebody").append(createDeckRows(Decks.getAddDecks()));
+        $("#subtablebody").append(createDeckRows(Decks.getSubDecks()));
+        $("#multtablebody").append(createDeckRows(Decks.getMultiDecks()));
+        $("#homeworktablebody").append(createDeckRows(Decks.getHomeworkDecks()));
+
+    });
+</script>
+
 </body>
 </html>
