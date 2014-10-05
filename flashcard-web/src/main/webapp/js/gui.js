@@ -3,10 +3,11 @@ var Gui = (function () {
     var countdownTimer;
     var seconds;
 
-    var init = function(cardOkFunc, cardNokFunc, startMissedCardRoundFunc){
+    var init = function(cardOkFunc, cardNokFunc){
 
         $("#showcardok_butt").off("click").click(cardOkFunc);
         $("#showcardnok_butt").off("click").click(cardNokFunc);
+        $("#flip_butt").off("click").click(flipCard);
     }
 
     var showCard = function(card){
@@ -18,7 +19,14 @@ var Gui = (function () {
         $('.front').find("p:first").text(card.q);
         $('.back').find("p:first").text(card.a);
 
+        enableFlipbutton();
+
         resetTimer();
+
+        function enableFlipbutton(){
+            document.getElementById("flip_butt").disabled = false;
+            $("#flip_butt").removeClass("disabled");
+        }
 
         function resetTimer(){
             if(countdownTimer != undefined){
@@ -94,27 +102,28 @@ var Gui = (function () {
 
 
     function secondPassed() {
-        document.getElementById('flipbutton').innerHTML = "<i class='icon-eye-open icon-white'></i>  (" + seconds + ")";
+        document.getElementById('flip_butt').innerHTML = "<i class='icon-eye-open icon-white'></i>  (" + seconds + ")";
 
         if (seconds == 0) {
-        flipCard();
+            flipCard();
         } else {
         seconds--;
         }
 
-        function flipCard(){
-            clearInterval(countdownTimer);
-            $("#flipid").addClass('flip');
-            disableFlipbutton();
-
-            function disableFlipbutton(){
-                document.getElementById("flipbutton").disabled = true;
-                document.getElementById("flipbutton").className += " disabled";
-                document.getElementById('flipbutton').innerHTML = "<i class='icon-eye-close icon-white'></i>  (0)";
-            }
-        }
 
      }
+
+    function flipCard(){
+        clearInterval(countdownTimer);
+        $("#flipid").addClass('flip');
+        disableFlipbutton();
+
+        function disableFlipbutton(){
+            document.getElementById("flip_butt").disabled = true;
+            $("#flip_butt").addClass("disabled");
+            document.getElementById('flip_butt').innerHTML = "<i class='icon-eye-close icon-white'></i>  (0)";
+        }
+    }
 
     return {
         init: init,
