@@ -53,14 +53,17 @@ var Gui = (function () {
         $("#finished_div").hide();
         $("#missedcard_div").show();
 
-        var missedText_1 = "Du klarade " + nbrCardsOkFirstRound + " kort direkt, men hade problem med " + nbrCardsMissedFirstRound + ". ";
+        var missedText_1 = "Du klarade " + nbrCardsOkFirstRound + " kort direkt,"
+        var missedText_2 = "men hade problem med " + nbrCardsMissedFirstRound + ". ";
         if(nbrCardsMissedFirstRound > 1 ){
-            var missedText_2 = "Vi visar om de korten tills du klarar dem!";
+            var missedText_3 = "Vi visar om de korten tills du klarar dem!";
         } else {
-            var missedText_2 = "Vi visar om det kortet tills du klarar det!";
+            var missedText_3 = "Vi visar om det kortet tills du klarar det!";
         }
 
-        $("#missedcard_text").text(missedText_1.concat(missedText_2));
+        $("#missedcard_text1").text(missedText_1);
+        $("#missedcard_text2").text(missedText_2);
+        $("#missedcard_text3").text(missedText_3);
         $("#missedcard_butt").off("click").click(startMissedCardRoundFunc);
     }
 
