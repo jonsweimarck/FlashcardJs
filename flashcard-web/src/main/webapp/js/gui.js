@@ -2,12 +2,15 @@ var Gui = (function () {
 
     var countdownTimer;
     var seconds;
+    var flipDivClone;
 
     var init = function(cardOkFunc, cardNokFunc){
 
         $("#showcardok_butt").off("click").click(cardOkFunc);
         $("#showcardnok_butt").off("click").click(cardNokFunc);
         $("#flip_butt").off("click").click(flipCard);
+
+        flipDivClone = $("#flipid").clone();
     }
 
     var showCard = function(card){
@@ -15,13 +18,22 @@ var Gui = (function () {
         $("#finished_div").hide();
         $("#showcard_div").show();
 
-        $("#flipid").removeClass('flip');
+        resetCardDiv();
         $('.front').find("p:first").text(card.q);
         $('.back').find("p:first").text(card.a);
 
         enableFlipbutton();
 
         resetTimer();
+
+        function resetCardDiv() {
+            $("#flipid").replaceWith(flipDivClone.clone());
+            //$("#flipid").removeClass('flip');
+            //$("#showcard_div").css("display","none");
+            //$("#flipid").attr("class","click panel");
+            //$("#showcard_div").css("display","inline");
+            //$("#showcard_div").show();
+        }
 
         function enableFlipbutton(){
             document.getElementById("flip_butt").disabled = false;

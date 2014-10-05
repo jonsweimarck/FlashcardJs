@@ -72,8 +72,8 @@
             z-index: 900;
             background: #EEE;
 
-            -webkit-transform: rotateX(180deg);             
-            -moz-transform: rotateX(180deg);            
+            -webkit-transform: rotateX(180deg);
+            -moz-transform: rotateX(180deg);
         }
         
         .panel .back {
@@ -111,7 +111,7 @@
             -webkit-transition: all .4s ease-in-out;
             transition: all .4s ease-in-out;
         }
-        
+
         .panel.flip .back {
             z-index: 1000;
             background: #EEE;
@@ -119,7 +119,7 @@
             -webkit-transform: rotateX(0deg) rotateY(0deg);
             -moz-transform: rotateX(0deg) rotateY(0deg);
         }
-        
+
         /* -- X axis rotation for click panel -- */
         .click .front {
             cursor: pointer;
