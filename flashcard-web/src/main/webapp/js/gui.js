@@ -21,10 +21,8 @@ var Gui = (function () {
         resetCardDiv();
         $('.front').find("p:first").text(card.q);
         $('.back').find("p:first").text(card.a);
-
-        enableFlipbutton();
-
         resetTimer();
+        enableFlipbutton();
 
         function resetCardDiv() {
             $("#flipid").replaceWith(flipDivClone.clone());
@@ -44,8 +42,9 @@ var Gui = (function () {
             if(countdownTimer != undefined){
                 clearInterval(countdownTimer);
             }
-            seconds = 5;
+            seconds = 4;
             countdownTimer = setInterval(function(){secondPassed();}, 1000);
+            document.getElementById('flip_butt').innerHTML = "<i class='icon-eye-open icon-white'></i>  (" + (seconds + 1) + ")";
         }
     }
 
