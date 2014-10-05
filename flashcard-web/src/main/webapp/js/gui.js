@@ -3,11 +3,10 @@ var Gui = (function () {
     var countdownTimer;
     var seconds;
 
-    var init = function(cardOkFunc, cardNokFunc, startAgainFunc){
+    var init = function(cardOkFunc, cardNokFunc, startMissedCardRoundFunc){
 
         $("#showcardok_butt").off("click").click(cardOkFunc);
         $("#showcardnok_butt").off("click").click(cardNokFunc);
-        $("#finished_butt").off("click").click(startAgainFunc);
     }
 
     var showCard = function(card){
