@@ -37,7 +37,7 @@ var Decks = (function () {
     }
 
     var getHomeworkDecks = function(){
-        return [];
+        return [v41];
     }
 
     /**
@@ -486,6 +486,16 @@ var Decks = (function () {
             {q:'10 * 5 = ', a:'10 * 5 = 50'},{q:'10 * 6 = ', a:'10 * 6 = 60'},{q:'10 * 7 = ', a:'10 * 7 = 70'},{q:'10 * 8 = ', a:'10 * 8 = 80'},
             {q:'10 * 9 = ', a:'10 * 9 = 90'},{q:'10 * 10 = ', a:'10 * 10 = 100'}
         ]
+    };
+
+
+    var v41 =
+    {
+        id      : 100,
+        name    : 'Vecka 41 - 42',
+        desc    : 'Repetetion: nollans, femmans och tians tabell',
+        cards   : nollanstabell.cards.concat(femmanstabell.cards.concat(tiansstabell.cards))
+
     };
 
     return {
