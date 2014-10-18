@@ -37,7 +37,7 @@ var Decks = (function () {
     }
 
     var getHomeworkDecks = function(){
-        return [v41];
+        return [v41, v42];
     }
 
     /**
@@ -493,8 +493,17 @@ var Decks = (function () {
     {
         id      : 100,
         name    : 'Vecka 41 - 42',
-        desc    : 'Repetetion: nollans, femmans och tians tabell',
+        desc    : 'Repetition: nollans, femmans och tians tabell',
         cards   : nollanstabell.cards.concat(femmanstabell.cards.concat(tiansstabell.cards))
+
+    };
+
+    var v42 =
+    {
+        id      : 101,
+        name    : 'Vecka 42 - 43',
+        desc    : 'Repetition: treans tabell',
+        cards   : treanstabell.cards
 
     };
 
