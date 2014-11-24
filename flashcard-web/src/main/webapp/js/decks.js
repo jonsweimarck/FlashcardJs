@@ -37,7 +37,7 @@ var Decks = (function () {
     }
 
     var getHomeworkDecks = function(){
-        return [v41, v42, v46];
+        return [v41, v42, v46, v47];
     }
 
     /**
@@ -513,6 +513,15 @@ var Decks = (function () {
         name    : 'Vecka 46 - 47',
         desc    : 'Repetition: treans och fyran tabell',
         cards   : treanstabell.cards.concat(fyranstabell.cards)
+
+    };
+
+    var v47 =
+    {
+        id      : 103,
+        name    : 'Vecka 47 - 48',
+        desc    : 'Sexans tabell',
+        cards   : sexansstabell.cards
 
     };
 
