@@ -37,7 +37,7 @@ var Decks = (function () {
     }
 
     var getHomeworkDecks = function(){
-        return [v41, v42, v46, v47];
+        return [v41, v42, v46, v47, v49];
     }
 
     /**
@@ -522,6 +522,15 @@ var Decks = (function () {
         name    : 'Vecka 47 - 48',
         desc    : 'Sexans tabell',
         cards   : sexansstabell.cards
+
+    };
+
+    var v49 =
+    {
+        id      : 104,
+        name    : 'Vecka 49 - 50',
+        desc    : 'Sexans och sjuans tabell',
+        cards   : sexansstabell.cards.concat(sjuanstabell.cards)
 
     };
 
