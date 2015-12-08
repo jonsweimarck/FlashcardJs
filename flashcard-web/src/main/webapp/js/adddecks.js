@@ -1,12 +1,8 @@
-/**
- * Created by jons on 21/09/14.
- */
-
 var AddDecks = (function () {
 
     var getAddDecks = function(){
         return [deck1, deck2];
-    }
+    };
 
 
     var deck1 =

@@ -1,7 +1,3 @@
-/**
- * Created by jons on 21/09/14.
- */
-
 var Deckstate = (function () {
 
     var cards;
@@ -35,7 +31,7 @@ var Deckstate = (function () {
             }
             return cards;
         }
-    }
+    };
 
     /**
      * Initierar variabler för en omgång med de kort som det svarats fel på
@@ -44,16 +40,16 @@ var Deckstate = (function () {
         console.log("Deckstate initOtherRound ");
         cardIndex = -1;
         isFirstRound = false;
-    }
+    };
 
 
-    var nbrCardsOkFirstRound = function(){return nbrWithState(STATE_CARD_OK_FIRST_ROUND);}
+    var nbrCardsOkFirstRound = function(){return nbrWithState(STATE_CARD_OK_FIRST_ROUND);};
 
-    var nbrCardsOkOtherRounds = function(){return nbrWithState(STATE_CARD_OK_OTHER_ROUND);}
+    var nbrCardsOkOtherRounds = function(){return nbrWithState(STATE_CARD_OK_OTHER_ROUND);};
 
-    var nbrCardsMissed = function(){return nbrWithState(STATE_CARD_MISSED);}
+    var nbrCardsMissed = function(){return nbrWithState(STATE_CARD_MISSED);};
 
-    var nbrCardsleft =  function(){return nbrWithState(STATE_CARD_NOT_YET_SHOWN);}
+    var nbrCardsleft =  function(){return nbrWithState(STATE_CARD_NOT_YET_SHOWN);};
 
     function nbrWithState(stateToCount){
         var count = 0;
@@ -72,7 +68,7 @@ var Deckstate = (function () {
             }
         }
         return false;
-    }
+    };
 
     var nextCard = function(){
         console.log('nextCard');
@@ -82,7 +78,7 @@ var Deckstate = (function () {
             }
         }
         return null;
-    }
+    };
 
     /**
      * Markerar aktuellt kort som ok och anropar sedan callbackfunktionen angetts i initFirstround()
@@ -96,7 +92,7 @@ var Deckstate = (function () {
         }
 
         currentCardHandledCallback();
-    }
+    };
 
     /**
      * Markerar aktuellt kort som Nok och anropar sedan callbackfunktionen angetts i initFirstround()
@@ -109,15 +105,15 @@ var Deckstate = (function () {
             console.log('cardsNok added, length: ' + missedCardsFirstRound.length);
         }
         currentCardHandledCallback();
-    }
+    };
 
     var missedCardsExists = function(){
         return nbrCardsMissed() > 0;
-    }
+    };
 
     var getMissedCardFirstRound = function(){
         return missedCardsFirstRound;
-    }
+    };
 
     return {
         initFirstRound: initFirstRound,

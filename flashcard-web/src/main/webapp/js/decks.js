@@ -1,7 +1,3 @@
-/**
- * Created by jons on 21/09/14.
- */
-
 var Decks = (function () {
 
     var getDeck = function (deckId) {
@@ -9,8 +5,9 @@ var Decks = (function () {
         var allDecks =
             getAddDecks()
             .concat(getSubDecks())
-            .concat(getMultiDecks())
-            .concat(getHomeworkDecks());
+            .concat(getMultiDecks()
+            //.concat(getHomeworkDecks()
+            );
 
         for (var i = 0; i < allDecks.length; i++) {
             console.log(allDecks[i].id);
@@ -25,20 +22,20 @@ var Decks = (function () {
 
     var getAddDecks = function(){
         return [lillaplus, storaplus, storaplusminuslillaplus];
-    }
+    };
 
     var getSubDecks = function(){
         return [lillaminus, storaminus, storaminusminuslillaminus];
-    }
+    };
 
     var getMultiDecks = function(){
         return [nollanstabell, ettanstabell, tvaanstabell, treanstabell, fyranstabell, femmanstabell,
                 sexansstabell,sjuanstabell, attanstabell, nianstabell, tiansstabell];
-    }
+    };
 
-    var getHomeworkDecks = function(){
-        return [v41, v42, v46, v47, v49];
-    }
+    //var getHomeworkDecks = function(){
+    //    return [v41, v42, v46, v47, v49];
+    //};
 
     /**
      * Randomize array element order in-place.
@@ -538,9 +535,9 @@ var Decks = (function () {
         getDeck         : getDeck,
         getAddDecks     : getAddDecks,
         getSubDecks     : getSubDecks,
-        getMultiDecks   : getMultiDecks,
-        getHomeworkDecks: getHomeworkDecks
+        getMultiDecks   : getMultiDecks
+        //,
+        //getHomeworkDecks: getHomeworkDecks
     };
 
 })();
-

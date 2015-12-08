@@ -11,7 +11,7 @@ var Gui = (function () {
         $("#flip_butt").off("click").click(flipCard);
 
         flipDivClone = $("#flipid").clone();
-    }
+    };
 
     var showCard = function(card){
         $("#missedcard_div").hide();
@@ -46,14 +46,14 @@ var Gui = (function () {
             countdownTimer = setInterval(function(){secondPassed();}, 1000);
             document.getElementById('flip_butt').innerHTML = "<i class='icon-eye-open icon-white'></i>  (" + (seconds + 1) + ")";
         }
-    }
+    };
 
     var showMissedCards = function(nbrCardsOkFirstRound, nbrCardsMissedFirstRound, startMissedCardRoundFunc){
         $("#showcard_div").hide();
         $("#finished_div").hide();
         $("#missedcard_div").show();
 
-        var missedText_1 = "Du klarade " + nbrCardsOkFirstRound + " kort direkt,"
+        var missedText_1 = "Du klarade " + nbrCardsOkFirstRound + " kort direkt,";
         var missedText_2 = "men hade problem med " + nbrCardsMissedFirstRound + ". ";
         if(nbrCardsMissedFirstRound > 1 ){
             var missedText_3 = "Vi visar om de korten tills du klarar dem!";
@@ -65,7 +65,7 @@ var Gui = (function () {
         $("#missedcard_text2").text(missedText_2);
         $("#missedcard_text3").text(missedText_3);
         $("#missedcard_butt").off("click").click(startMissedCardRoundFunc);
-    }
+    };
 
     var showUpdatedGraph = function(okFirstRound, okOtherRounds, missed, left){
         console.log(
@@ -75,7 +75,7 @@ var Gui = (function () {
                 ", left: "          + left);
 
         drawChart(okFirstRound, okOtherRounds, missed, left);
-    }
+    };
     var showFinished = function(cardsToshow){
         console.log('showFinished');
 
@@ -91,7 +91,7 @@ var Gui = (function () {
         $("#showcard_div").hide();
         $("#missedcard_div").hide();
         $("#finished_div").show();
-    }
+    };
 
     function drawChart(okFirstRound, okOtherRounds, missed, left) {
         var data = google.visualization.arrayToDataTable([
